@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+.fixture_row {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.row_top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f0f0f5;
+}
+
+.row_bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.league_info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.league_info-country {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 16px;
+  border-right: 2px solid white;
+}
+
+.league_info-time {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+}
+
+.league_info-country p {
+  font-weight: 700;
+}
+
+.fixture_date {
+  font-size: 0.8rem;
+  color: #282828;
+  /* padding: 12px; */
+  height: 100%;
+}
+
+.circle-mask {
+  width: 20px; /* Adjust the size as needed */
+  height: 20px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: inline-block; /* or float: left; */
+}
+
+.circle-mask img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Maintain aspect ratio and fill the circle */
+}
+
+.state_wrapper {
+  border-left: 5px solid #1893c1;
+  padding: 12px;
+  color: #1893c1;
+}
+
+@keyframes flicker {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.live-data {
+  animation: flicker 1s infinite;
+}
+
+.state {
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.added-time {
+  color: red; /* or any other color you prefer */
+  font-weight: bold; /* or any other styles you want to apply */
+  font-size: 12px;
+}
+
+.state_wrapper,
+.fixture_h2h,
+.fixture_details {
+  width: 33%;
+}
