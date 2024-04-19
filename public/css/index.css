@@ -78,7 +78,7 @@ body {
 
 .state_wrapper {
   border-left: 5px solid #1893c1;
-  padding: 12px;
+  padding: 16px 12px;
   color: #1893c1;
 }
 
@@ -110,7 +110,46 @@ body {
 }
 
 .state_wrapper,
-.fixture_h2h,
 .fixture_details {
-  width: 33%;
+  width: 140px;
+}
+
+.fixture_h2h {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.team {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  width: 150px;
+}
+
+.team.home {
+  justify-content: end;
+}
+
+.team.away {
+  justify-content: start;
+}
+
+.fixture-score {
+  background-color: #f0f0f5;
+  padding: 4px 12px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.fixture_details {
+  padding: 16px;
+  text-align: right;
+}
+
+.fixture_details a {
+  font-size: 0.8rem;
+  color: #ff0000;
 }

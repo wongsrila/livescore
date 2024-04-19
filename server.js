@@ -3,6 +3,7 @@ const path = require('path');
 require('dotenv').config();
 const routes = require('./routes/routes');
 const { livescoreStream } = require('./controllers/livescoreController');
+const { fixtureStream } = require('./controllers/fixtureController');
 
 const app = express();
 const port = process.env.PORT || 3333;
@@ -18,6 +19,7 @@ app.use(express.static(path.join(__dirname, '/public')));
 app.use('/', routes);
 // app.get('/fixtures/:id/events', fixtureStream);
 app.get('/livescore-stream', livescoreStream);
+app.get('/fixture-stream', fixtureStream);
 
 // Manifest file
 // app.get('/manifest.json', (req, res) => {
