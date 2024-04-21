@@ -22,10 +22,10 @@ app.get('/livescore-stream', livescoreStream);
 app.get('/fixture-stream', fixtureStream);
 
 // Manifest file
-// app.get('/manifest.json', (req, res) => {
-//   res.setHeader('Content-Type', 'application/json');
-//   res.sendFile(path.join(__dirname, 'manifest.json'));
-// });
+app.get('/manifest.json', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.sendFile(path.join(__dirname, 'manifest.json'));
+});
 
 app.listen(port, () => {
   console.log(`Listening on port http://localhost:${port}/`);
