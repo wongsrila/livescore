@@ -858,7 +858,7 @@ const fixtureStream = (req, res) => {
 
   getFixture();
 
-  const intervalId = setInterval(getFixture, 60000);
+  const intervalId = setInterval(getFixture, 4000);
 
   req.on('close', () => {
     clearInterval(intervalId);
