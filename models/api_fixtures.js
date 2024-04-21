@@ -30,7 +30,7 @@ async function requestFixture(id) {
     const getDate = todayDate();
     const response = await fetch(
       `https://api.sportmonks.com/v3/football/fixtures/${id}
-      ?&include=round;league.country;scores;events;participants;periods;state.type&timezone=Europe/Amsterdam`,
+      ?&include=round;league.country;scores;events.type;participants;periods;state.type&timezone=Europe/Amsterdam`,
       {
         method: 'GET',
         headers: {

@@ -9,6 +9,12 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+.page-wrapper {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .fixture_row {
   display: flex;
   flex-direction: column;
@@ -104,8 +110,8 @@ body {
 }
 
 .added-time {
-  color: red; /* or any other color you prefer */
-  font-weight: bold; /* or any other styles you want to apply */
+  color: #ff0000;
+  font-weight: bold;
   font-size: 12px;
 }
 
