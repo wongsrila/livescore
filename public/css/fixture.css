@@ -58,7 +58,7 @@ body {
 
 .breadcrumb a {
   color: #282828;
-  text-decoration: none;
+  text-decoration: underline;
 }
 
 .h2h-wrapper {
