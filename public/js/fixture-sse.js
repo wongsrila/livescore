@@ -192,7 +192,7 @@ evtSource.onmessage = function (event) {
   const fixtureHTML = /*html*/ `
     <section class="breadcrumb">
       <div><a href="/">Live Scores</a></div>
-      <div><b>></b></div>
+      <b>></b>
       <div><img src="${
         data.league.country.image_path
       }" alt="country-flag" width="24"></div>

@@ -86,7 +86,7 @@ body {
 }
 
 .state_wrapper {
-  border-left: 5px solid #ff0045;
+  border-left: 3px solid #ff0045;
   padding: 16px 12px;
   color: #ff0045;
 }
@@ -149,7 +149,7 @@ body {
   font-family: 'Silkscreen', sans-serif;
   background-color: #f0f0f5;
   padding: 4px 12px;
-  border-radius: 8px;
+  border-radius: 4px;
   font-size: 0.8rem;
   font-weight: 400;
 }
