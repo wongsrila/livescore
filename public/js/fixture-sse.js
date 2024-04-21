@@ -183,6 +183,12 @@ evtSource.onmessage = function (event) {
                     ? `<span class="event-info related">(${event.related_player_name})</span>`
                     : ''
                 }
+                ${
+                  event.type.code === 'yellowcard' ||
+                  event.type.code === 'yellowcard'
+                    ? `<span class="event-info related">(${event.info})</span>`
+                    : ''
+                }
                 
               </div>
             </div>
