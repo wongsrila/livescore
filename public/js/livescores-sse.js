@@ -69,7 +69,7 @@ const stateNames = {
 const evtSource = new EventSource(`/livescore-stream`);
 evtSource.onmessage = function (event) {
   const data = JSON.parse(event.data);
-  // console.log(data);
+  console.log(data);
   const tableWrapper = document.getElementsByClassName('table_wrapper')[0];
 
   // Clear the existing content
@@ -90,13 +90,25 @@ evtSource.onmessage = function (event) {
     let homeScore = 0;
     let awayScore = 0;
 
-    fixture.scores.forEach((score) => {
-      if (score.score.participant === 'home') {
-        homeScore = score.score.goals;
-      } else {
-        awayScore = score.score.goals;
-      }
-    });
+    // fixture.scores.forEach((score) => {
+    //   if (score.score.participant === 'home') {
+    //     homeScore = score.score.goals;
+    //   } else {
+    //     awayScore = score.score.goals;
+    //   }
+    // });
+
+    homeScore =
+      fixture.scores.find(
+        (score) =>
+          score.description === 'CURRENT' && score.score.participant === 'home'
+      )?.score.goals ?? 0;
+
+    awayScore =
+      fixture.scores.find(
+        (score) =>
+          score.description === 'CURRENT' && score.score.participant === 'away'
+      )?.score.goals ?? 0;
 
     // Get home and away team details
     fixture.participants.forEach((participant) => {
@@ -165,7 +177,7 @@ evtSource.onmessage = function (event) {
             <p>${homeTeamName}</p>
             <img src="${homeTeamImagePath}" alt="team-logo" height="24" />
           </div>
-          <div class="fixture-score">${homeScore} - ${awayScore}</div>
+          <div class="fixture-score">${homeScore}-${awayScore}</div>
           <div class="team away">
             <img src="${awayTeamImagePath}" alt="team-logo" height="24" />
             <p>${awayTeamName}</p>

@@ -1,8 +1,48 @@
+// Format timestamp function
+function formatTimestampAsTime(timestamp) {
+  if (timestamp === undefined) return '';
+
+  // Convert the Unix timestamp from seconds to milliseconds
+  const date = new Date(timestamp * 1000);
+  const timeOptions = {
+    hour: '2-digit',
+    minute: '2-digit',
+  };
+  return date.toLocaleTimeString('nl-NL', timeOptions);
+}
+
+function formatFixtureDate(starting_at) {
+  if (!starting_at) return '';
+
+  const dateString = starting_at;
+  const date = new Date(dateString);
+  const monthNames = [
+    'januari',
+    'februari',
+    'maart',
+    'april',
+    'mei',
+    'juni',
+    'juli',
+    'augustus',
+    'september',
+    'oktober',
+    'november',
+    'december',
+  ];
+  const day = date.getDate();
+  const monthIndex = date.getMonth();
+  const year = date.getFullYear().toString().slice(-2);
+  const month = monthNames[monthIndex];
+  const result = `${day} ${month} '${year}`;
+  return result; // Output: "14 augustus '10"
+}
+
 const evtSource = new EventSource(`/fixture-stream`);
 evtSource.onmessage = function (event) {
   const data = JSON.parse(event.data);
 
-  console.log(data);
+  // console.log(data);
 
   const contentWrapper = document.getElementsByClassName('content-wrapper')[0];
 
@@ -67,6 +107,24 @@ evtSource.onmessage = function (event) {
       event.type.code === 'substitution'
   );
 
+  // Get home team stats
+  const homeStats = data.statistics.filter(
+    (statistic) => statistic.location === 'home'
+  );
+
+  // Get Away team stats
+  const awayStats = data.statistics.filter(
+    (statistic) => statistic.location === 'away'
+  );
+
+  function getHomeStats(type_id) {
+    return homeStats.find((stat) => stat.type_id === type_id).data.value;
+  }
+
+  function getAwayStats(type_id) {
+    return awayStats.find((stat) => stat.type_id === type_id).data.value;
+  }
+
   const sortedEvents = filteredEvents.sort((a, b) => {
     const aTotalMinutes = getTotalMinutes(a);
     const bTotalMinutes = getTotalMinutes(b);
@@ -86,13 +144,15 @@ evtSource.onmessage = function (event) {
     }
   });
 
-  data.scores.forEach((score) => {
-    if (score.score.participant === 'home') {
-      homeScore = score.score.goals;
-    } else {
-      awayScore = score.score.goals;
-    }
-  });
+  homeScore = data.scores.find(
+    (score) =>
+      score.description === 'CURRENT' && score.score.participant === 'home'
+  ).score.goals;
+
+  awayScore = data.scores.find(
+    (score) =>
+      score.description === 'CURRENT' && score.score.participant === 'away'
+  ).score.goals;
 
   if (data.state.id === 3) {
     currentTimeOrState = 'Half Time';
@@ -136,9 +196,9 @@ evtSource.onmessage = function (event) {
       <div><img src="${
         data.league.country.image_path
       }" alt="country-flag" width="24"></div>
-      <div>${data.league?.name || ''} ${
+      <a href="#">${data.league?.name || ''} ${
     data.round !== null ? `| Round ${data.round.name}` : ''
-  }</div>
+  }</a>
     </section>
     <section class="h2h-wrapper">
       <div class="team-logo">
@@ -146,7 +206,9 @@ evtSource.onmessage = function (event) {
         <p>${homeTeamName}</p>
       </div>
       <div class="fixture-score-wrappper">
-        <p class="fixture-date">23:30 - 20 april '24</p>
+        <p class="fixture-date">${formatTimestampAsTime(
+          data.starting_at_timestamp
+        )} - ${formatFixtureDate(data.starting_at)}</p>
         <p class="fixture-score">${homeScore}-${awayScore}</p>
         <p class="fixture-state">${currentTimeOrState}${liveTicker}${addedTime}</p>
       </div>
@@ -194,7 +256,7 @@ evtSource.onmessage = function (event) {
                 }
                 ${
                   event.type.code === 'yellowcard' ||
-                  event.type.code === 'yellowcard'
+                  event.type.code === 'redcard'
                     ? `<span class="event-info related">(${event.info})</span>`
                     : ''
                 }
@@ -207,8 +269,61 @@ evtSource.onmessage = function (event) {
       </div>
     </section>
     <section class="fixture-nav">
-      <p class="nav-btn">Upcomming Matches</p>
+      <p class="nav-btn">Statistics</p>
     </section>
+    <section class="stats-section">
+      <div class="stats-row">
+        <div class="home-stats">${getHomeStats(45)}%</div>
+        <div class="stats-info">Ball Possession</div>
+        <div class="away-stats">${getAwayStats(45)}%</div>
+      </div>
+      <div class="stats-row">
+        <div class="home-stats">${getHomeStats(42)}</div>
+        <div class="stats-info">Shots</div>
+        <div class="away-stats">${getAwayStats(42)}</div>
+      </div>
+      <div class="stats-row">
+        <div class="home-stats">${getHomeStats(86)}</div>
+        <div class="stats-info">Shots on target</div>
+        <div class="away-stats">${getAwayStats(86)}</div>
+      </div>
+      <div class="stats-row">
+        <div class="home-stats">${getHomeStats(80)}</div>
+        <div class="stats-info">Passes</div>
+        <div class="away-stats">${getAwayStats(80)}</div>
+      </div>
+      <div class="stats-row">
+        <div class="home-stats">${getHomeStats(82)}%</div>
+        <div class="stats-info">Pass accuracy</div>
+        <div class="away-stats">${getAwayStats(82)}%</div>
+      </div>
+      <div class="stats-row">
+        <div class="home-stats">${getHomeStats(56)}</div>
+        <div class="stats-info">Fouls</div>
+        <div class="away-stats">${getAwayStats(56)}</div>
+      </div>
+      <div class="stats-row">
+        <div class="home-stats">${getHomeStats(84)}</div>
+        <div class="stats-info">Yellow Cards</div>
+        <div class="away-stats">${getAwayStats(84)}</div>
+      </div>
+      <div class="stats-row">
+        <div class="home-stats">${getHomeStats(83)}</div>
+        <div class="stats-info">Red Cards</div>
+        <div class="away-stats">${getAwayStats(83)}</div>
+      </div>
+      <div class="stats-row">
+        <div class="home-stats">${getHomeStats(51)}</div>
+        <div class="stats-info">Offsides</div>
+        <div class="away-stats">${getAwayStats(51)}</div>
+      </div>
+      <div class="stats-row">
+        <div class="home-stats">${getHomeStats(34)}</div>
+        <div class="stats-info">Corner Kicks</div>
+        <div class="away-stats">${getAwayStats(34)}</div>
+      </div>
+    </section>
+    
    `;
 
   // Insert the fixtureRowHTML inside table_wrapper
