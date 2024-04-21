@@ -118,11 +118,13 @@ evtSource.onmessage = function (event) {
   );
 
   function getHomeStats(type_id) {
-    return homeStats.find((stat) => stat.type_id === type_id).data.value;
+    const stat = homeStats.find((stat) => stat.type_id === type_id);
+    return stat?.data.value ?? 0; // Return 0 if stat is undefined
   }
 
   function getAwayStats(type_id) {
-    return awayStats.find((stat) => stat.type_id === type_id).data.value;
+    const stat = awayStats.find((stat) => stat.type_id === type_id);
+    return stat?.data.value ?? 0; // Return 0 if stat is undefined
   }
 
   const sortedEvents = filteredEvents.sort((a, b) => {
@@ -144,15 +146,17 @@ evtSource.onmessage = function (event) {
     }
   });
 
-  homeScore = data.scores.find(
-    (score) =>
-      score.description === 'CURRENT' && score.score.participant === 'home'
-  ).score.goals;
+  homeScore =
+    data.scores.find(
+      (score) =>
+        score.description === 'CURRENT' && score.score.participant === 'home'
+    )?.score.goals ?? 0;
 
-  awayScore = data.scores.find(
-    (score) =>
-      score.description === 'CURRENT' && score.score.participant === 'away'
-  ).score.goals;
+  awayScore =
+    data.scores.find(
+      (score) =>
+        score.description === 'CURRENT' && score.score.participant === 'away'
+    )?.score.goals ?? 0;
 
   if (data.state.id === 3) {
     currentTimeOrState = 'Half Time';
