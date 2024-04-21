@@ -145,7 +145,9 @@ evtSource.onmessage = function (event) {
             <p class="fixture_date">${fixture.league?.country?.name || ''}</p>
           </div>
           <div class="league_info-league fixture_date">
-            ${fixture.league?.name || ''} | Round ${fixture.round?.name || ''}
+            ${fixture.league?.name || ''} ${
+      fixture.round !== null ? `| Round ${fixture.round.name}` : ''
+    }
           </div>
         </div>
         <div class="league_info-time">

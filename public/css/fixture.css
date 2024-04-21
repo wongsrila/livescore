@@ -34,9 +34,11 @@ body {
 }
 
 .content-wrapper {
-  max-width: 800px;
+  max-width: 780px;
   margin-left: auto;
   margin-right: auto;
+  border-left: 1px solid #f0f0f5;
+  border-right: 1px solid #f0f0f5;
 }
 
 /* breadcrumb */
@@ -79,6 +81,7 @@ body {
 
 .team-logo p {
   font-size: 0.8rem;
+  text-align: center;
 }
 
 .team-logo img {
@@ -115,6 +118,7 @@ body {
 /* NAVIGATION SECTION */
 .fixture-nav {
   display: flex;
+  justify-content: center;
   gap: 0.7rem;
   padding: 12px 12px;
   border-bottom: 1px solid #f0f0f5;
@@ -122,12 +126,12 @@ body {
 
 .nav-btn {
   background-color: none;
-  padding: 8px 12px;
-  color: #ff0045;
-  border: 1px solid #ff0045;
+  /* padding: 8px 12px; */
+  color: #282828;
+  /* border: 1px solid #ff0045; */
   font-size: 0.8rem;
   font-weight: 700;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   border-radius: 4px;
 }
 
@@ -141,6 +145,7 @@ body {
   display: flex;
   justify-content: center;
   padding: 2rem 12px;
+  border-bottom: 1px solid #f0f0f5;
 }
 
 .events-column {

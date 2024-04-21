@@ -52,16 +52,26 @@ evtSource.onmessage = function (event) {
   // Get current time or state name
   const tickingPeriod = data.periods.find((period) => period.ticking === true);
 
+  function getTotalMinutes(event) {
+    const totalMinutes = event.minute + (event.extra_minute || 0);
+    return totalMinutes;
+  }
+
   const filteredEvents = data.events.filter(
     (event) =>
       event.type.code === 'goal' ||
       event.type.code === 'owngoal' ||
       event.type.code === 'penalty' ||
       event.type.code === 'yellowcard' ||
-      event.type.code === 'redcard'
+      event.type.code === 'redcard' ||
+      event.type.code === 'substitution'
   );
 
-  const sortedEvents = filteredEvents.sort((a, b) => b.minute - a.minute);
+  const sortedEvents = filteredEvents.sort((a, b) => {
+    const aTotalMinutes = getTotalMinutes(a);
+    const bTotalMinutes = getTotalMinutes(b);
+    return bTotalMinutes - aTotalMinutes;
+  });
 
   // Get home and away team details
   data.participants.forEach((participant) => {
@@ -111,6 +121,7 @@ evtSource.onmessage = function (event) {
       goal: '/img/goal.svg',
       owngoal: '/img/goal.svg',
       penalty: '/img/goal.svg',
+      substitution: '/img/substitution.svg',
       // Add more event codes and their corresponding icon file names here
     };
 
@@ -147,9 +158,7 @@ evtSource.onmessage = function (event) {
       </div>
     </section>
     <section class="fixture-nav">
-      <p class="nav-btn active">Summary</p>
-      <p class="nav-btn">Stats</p>
-      <p class="nav-btn">Lineups</p>
+      <p class="nav-btn">Summary</p>
     </section>
     <section class="events-list">
       <div class="events-column">
@@ -196,6 +205,9 @@ evtSource.onmessage = function (event) {
           )
           .join('')}
       </div>
+    </section>
+    <section class="fixture-nav">
+      <p class="nav-btn">Upcomming Matches</p>
     </section>
    `;
 
