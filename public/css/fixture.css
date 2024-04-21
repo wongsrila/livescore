@@ -181,9 +181,14 @@ body {
 
 .event-details {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-start;
   font-size: 0.8rem;
+  gap: 0.5rem;
+}
+
+.event-details.away {
+  flex-direction: row-reverse;
 }
 
 .event-minute {
@@ -193,6 +198,11 @@ body {
 
 .event-info {
   font-weight: 700;
+}
+
+.event-info.related {
+  font-weight: 400;
+  font-size: 0.7rem;
 }
 
 .away-event > .event-details {

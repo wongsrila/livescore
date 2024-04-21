@@ -63,8 +63,6 @@ evtSource.onmessage = function (event) {
 
   const sortedEvents = filteredEvents.sort((a, b) => b.minute - a.minute);
 
-  console.log(data);
-
   // Get home and away team details
   data.participants.forEach((participant) => {
     if (participant.meta.location === 'home') {
@@ -176,8 +174,16 @@ evtSource.onmessage = function (event) {
                 : ''
             }
               </div>
-              <div class="event-details">
+              <div class="event-details ${
+                event.participant_id === homeTeamId ? 'home' : 'away'
+              }">
                 <span class="event-info">${event.player_name}</span>
+                ${
+                  event.related_player_name !== null
+                    ? `<span class="event-info related">(${event.related_player_name})</span>`
+                    : ''
+                }
+                
               </div>
             </div>
           `
@@ -189,6 +195,4 @@ evtSource.onmessage = function (event) {
 
   // Insert the fixtureRowHTML inside table_wrapper
   contentWrapper.innerHTML += fixtureHTML;
-
-  console.log(data);
 };
