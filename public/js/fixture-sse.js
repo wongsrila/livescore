@@ -38,11 +38,39 @@ function formatFixtureDate(starting_at) {
   return result; // Output: "14 augustus '10"
 }
 
+let prevHomeScore = 0;
+let prevAwayScore = 0;
+
+let audioElement = null; // Declare a global variable to hold the audio element
+
+function playGoalSound() {
+  if (audioElement) {
+    // If an audio element already exists, stop it and remove it
+    audioElement.pause();
+    audioElement.currentTime = 0;
+    audioElement.removeEventListener('ended', handleAudioEnded);
+    document.body.removeChild(audioElement);
+  }
+
+  audioElement = document.createElement('audio');
+  audioElement.src = '/audio/goal.mp3'; // Replace with the path to your goal sound file
+  audioElement.autoplay = true;
+  document.body.appendChild(audioElement);
+
+  // Add an event listener to remove the audio element after it finishes playing
+  audioElement.addEventListener('ended', handleAudioEnded);
+}
+
+function handleAudioEnded() {
+  document.body.removeChild(audioElement);
+  audioElement = null;
+}
+
 const evtSource = new EventSource(`/fixture-stream`);
 evtSource.onmessage = function (event) {
   const data = JSON.parse(event.data);
 
-  // console.log(data);
+  console.log(data);
 
   const contentWrapper = document.getElementsByClassName('content-wrapper')[0];
 
@@ -157,6 +185,18 @@ evtSource.onmessage = function (event) {
       (score) =>
         score.description === 'CURRENT' && score.score.participant === 'away'
     )?.score.goals ?? 0;
+
+  if (prevHomeScore !== homeScore) {
+    console.log('goal');
+    playGoalSound();
+    prevHomeScore = homeScore;
+  }
+
+  if (prevAwayScore !== awayScore) {
+    console.log('goal');
+    playGoalSound();
+    prevAwayScore = awayScore;
+  }
 
   if (data.state.id === 3) {
     currentTimeOrState = 'Half Time';

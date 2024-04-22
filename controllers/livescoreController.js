@@ -1313,7 +1313,7 @@ const livescoreStream = (req, res) => {
 
   getLivescore();
 
-  const intervalId = setInterval(getLivescore, 120000);
+  const intervalId = setInterval(getLivescore, 30000);
 
   req.on('close', () => {
     clearInterval(intervalId);

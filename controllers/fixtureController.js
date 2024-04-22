@@ -4,7 +4,6 @@ const {
 } = require('../models/api_fixtures');
 
 let fixtureId = null;
-let fixtureData = null;
 
 testData = {
   id: 19104333,
@@ -1643,7 +1642,7 @@ testData = {
 const getFixture = async (req, res) => {
   try {
     fixtureId = req.params.id;
-    fixtureData = await requestFixture(fixtureId);
+    const fixtureData = await requestFixture(fixtureId);
     const leagueStandings = await requestLeagueStandings(fixtureData.league_id);
 
     const orderedStandings = leagueStandings.sort(
@@ -1662,12 +1661,13 @@ const fixtureStream = (req, res) => {
   res.setHeader('Connection', 'keep-alive');
 
   const getFixture = async () => {
-    res.write(`data: ${JSON.stringify(fixtureData)}\n\n`);
+    const fixtureDataStream = await requestFixture(fixtureId);
+    res.write(`data: ${JSON.stringify(fixtureDataStream)}\n\n`);
   };
 
   getFixture();
 
-  const intervalId = setInterval(getFixture, 30000);
+  const intervalId = setInterval(getFixture, 5000);
 
   req.on('close', () => {
     clearInterval(intervalId);
