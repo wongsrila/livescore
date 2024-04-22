@@ -217,7 +217,7 @@ evtSource.onmessage = function (event) {
             <div class="event-details ${event.participant_id === homeTeamId ? 'home' : 'away'}">
               <span class="event-info">${event.player_name !== null ? event.player_name : ''}</span>
               ${event.related_player_name !== null ? `<span class="event-info related">(${event.related_player_name})</span>` : ''}
-              ${event.type.code === 'yellowcard' || event.type.code === 'redcard' ? `<span class="event-info related">(${event.info})</span>` : ''} 
+              ${event.type.code === 'yellowcard' || event.type.code === 'redcard' ? `<span class="event-info related">(${event.info !== null ? event.info : ''})</span>` : ''} 
             </div>
           </div>
         `
