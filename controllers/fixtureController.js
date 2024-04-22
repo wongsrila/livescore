@@ -73,7 +73,7 @@ testData = {
       type_id: 1525,
       participant_id: 2394,
       score: {
-        goals: 2,
+        goals: 3,
         participant: 'home',
       },
       description: 'CURRENT',

@@ -6,8 +6,8 @@ import {
 
 let prevHomeScore = 0;
 let prevAwayScore = 0;
-
-let audioElement = null; // Declare a global variable to hold the audio element
+let audioElement = null;
+let scoresInitialized = false;
 
 function playGoalSound() {
   if (audioElement) {
@@ -121,6 +121,12 @@ evtSource.onmessage = function (event) {
       (score) =>
         score.description === 'CURRENT' && score.score.participant === 'away'
     )?.score.goals ?? 0;
+
+  if (!scoresInitialized) {
+    prevHomeScore = homeScore;
+    prevAwayScore = awayScore;
+    scoresInitialized = true;
+  }
 
   if (prevHomeScore !== homeScore) {
     playGoalSound();
