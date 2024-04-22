@@ -69,7 +69,7 @@ const stateNames = {
 const evtSource = new EventSource(`/livescore-stream`);
 evtSource.onmessage = function (event) {
   const data = JSON.parse(event.data);
-
+  console.log(data);
   const tableWrapper = document.getElementsByClassName('table_wrapper')[0];
 
   // Clear the existing content
