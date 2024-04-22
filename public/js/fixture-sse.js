@@ -193,6 +193,7 @@ evtSource.onmessage = function (event) {
   }
 
   // Create the fixture_row HTML
+  // prettier-ignore
   const fixtureHTML = /*html*/ `
     <section class="breadcrumb">
       <div><a href="/">Live Scores</a></div>
@@ -228,48 +229,21 @@ evtSource.onmessage = function (event) {
     </section>
     <section class="events-list">
       <div class="events-column">
-        ${sortedEvents
-          .map(
-            (event) => `
-            <div class="event-item ${
-              event.participant_id === homeTeamId ? 'home-event' : 'away-event'
-            }">
-              <div class="event-minute">${event.minute}'${
-              event.extra_minute
-                ? `<span class="added-time"> +${event.extra_minute}</span>`
-                : ''
-            }</div>
-              <div class="event-icon">
-                <img src="${getEventIcon(event.type.code)}" alt="${
-              event.type.name
-            }" width="16">
-            ${
-              event.result !== null
-                ? `<p class="event-icon-text">${event.result}</p>`
-                : ''
-            }
-              </div>
-              <div class="event-details ${
-                event.participant_id === homeTeamId ? 'home' : 'away'
-              }">
-                <span class="event-info">${event.player_name}</span>
-                ${
-                  event.related_player_name !== null
-                    ? `<span class="event-info related">(${event.related_player_name})</span>`
-                    : ''
-                }
-                ${
-                  event.type.code === 'yellowcard' ||
-                  event.type.code === 'redcard'
-                    ? `<span class="event-info related">(${event.info})</span>`
-                    : ''
-                }
-                
-              </div>
+        ${sortedEvents.map((event) => `
+          <div class="event-item ${event.participant_id === homeTeamId ? 'home-event' : 'away-event'}">
+            <div class="event-minute">${event.minute}'${event.extra_minute ? `<span class="added-time"> +${event.extra_minute}</span>` : ''}</div>
+            <div class="event-icon">
+              <img src="${getEventIcon(event.type.code)}" alt="${event.type.name}" width="16">
+              ${event.result !== null ? `<p class="event-icon-text">${event.result}</p>` : ''}
             </div>
-          `
-          )
-          .join('')}
+            <div class="event-details ${event.participant_id === homeTeamId ? 'home' : 'away'}">
+              <span class="event-info">${event.player_name}</span>
+              ${event.related_player_name !== null ? `<span class="event-info related">(${event.related_player_name})</span>` : ''}
+              ${event.type.code === 'yellowcard' || event.type.code === 'redcard' ? `<span class="event-info related">(${event.info})</span>` : ''} 
+            </div>
+          </div>
+        `
+        ).join('')}
       </div>
     </section>
     <section class="fixture-nav">

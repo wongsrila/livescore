@@ -12,6 +12,14 @@ body {
   font-size: 0.8rem;
 }
 
+main {
+  max-width: 780px;
+  margin-left: auto;
+  margin-right: auto;
+  border-left: 1px solid #f0f0f5;
+  border-right: 1px solid #f0f0f5;
+}
+
 .added-time {
   color: #ff0000;
   font-weight: bold;
@@ -34,13 +42,13 @@ body {
   animation: flicker 1s infinite;
 }
 
-.content-wrapper {
+/* .content-wrapper {
   max-width: 780px;
   margin-left: auto;
   margin-right: auto;
   border-left: 1px solid #f0f0f5;
   border-right: 1px solid #f0f0f5;
-}
+} */
 
 /* breadcrumb */
 .breadcrumb {
@@ -246,4 +254,59 @@ body {
 .home-stats,
 .away-stats {
   font-weight: 700;
+}
+
+/* standings section */
+.standings {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 12px;
+}
+
+.standing-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 12px 0;
+  border-bottom: 1px solid #f0f0f5;
+}
+
+.team_name-wrapper {
+  display: flex;
+  gap: 2rem;
+}
+
+.team_data-wrapper {
+  display: flex;
+  gap: 2rem;
+}
+
+.standing-team {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 220px;
+}
+
+.standing-team img {
+  width: 24px;
+}
+
+.standing-position {
+  display: flex;
+  align-items: center;
+}
+
+.standing-data {
+  min-width: 35px;
+  text-align: center;
+}
+
+.arrow-up {
+  color: #08a640;
+}
+
+.arrow-down {
+  color: #ff0045;
 }

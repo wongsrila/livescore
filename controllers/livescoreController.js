@@ -1,4 +1,7 @@
-const { requestLivescores } = require('../models/api_fixtures');
+const {
+  requestLivescores,
+  requestTodayFixtures,
+} = require('../models/api_fixtures');
 
 testData = [
   {
@@ -1292,17 +1295,25 @@ const livescoreStream = (req, res) => {
   const getLivescore = async () => {
     // const livescoresData = testData;
     const livescoresData = await requestLivescores();
+    const fixturesToday = await requestTodayFixtures();
 
-    const orderedData = livescoresData.sort(
-      (a, b) => b.starting_at_timestamp - a.starting_at_timestamp
-    );
+    if (livescoresData) {
+      const orderedData = livescoresData.sort(
+        (a, b) => b.starting_at_timestamp - a.starting_at_timestamp
+      );
 
-    res.write(`data: ${JSON.stringify(orderedData)}\n\n`);
+      res.write(`data: ${JSON.stringify(orderedData)}\n\n`);
+    } else {
+      const orderedData = fixturesToday.sort(
+        (a, b) => b.starting_at_timestamp - a.starting_at_timestamp
+      );
+      res.write(`data: ${JSON.stringify(orderedData)}\n\n`);
+    }
   };
 
   getLivescore();
 
-  const intervalId = setInterval(getLivescore, 5000);
+  const intervalId = setInterval(getLivescore, 120000);
 
   req.on('close', () => {
     clearInterval(intervalId);

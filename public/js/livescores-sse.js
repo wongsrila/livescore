@@ -142,32 +142,19 @@ evtSource.onmessage = function (event) {
     }
 
     // Create the fixture_row HTML
+    // prettier-ignore
     const fixtureRowHTML = /*html*/ `
     <div class="fixture_row">
       <div class="row_top">
         <div class="league_info">
           <div class="league_info-country">
-            <div class="circle-mask">
-              ${
-                fixture.league?.country?.image_path
-                  ? `<img src="${fixture.league.country.image_path}" alt="logo" height="20" />`
-                  : ''
-              }
-            </div>
+            <div class="circle-mask">${fixture.league?.country?.image_path ? `<img src="${fixture.league.country.image_path}" alt="logo" height="20" />` : ''}</div>
             <p class="fixture_date">${fixture.league?.country?.name || ''}</p>
           </div>
-          <div class="league_info-league fixture_date">
-            ${fixture.league?.name || ''} ${
-      fixture.round !== null ? `| Round ${fixture.round.name}` : ''
-    }
-          </div>
+          <div class="league_info-league fixture_date">${fixture.league?.name || ''} ${fixture.round !== null ? `| Round ${fixture.round.name}` : ''}</div>
         </div>
         <div class="league_info-time">
-          <div class="fixture_date">
-            <b>${formatTimestampAsTime(
-              fixture.starting_at_timestamp
-            )}</b> - ${formatFixtureDate(fixture.starting_at)}
-          </div>
+          <div class="fixture_date"><b>${formatTimestampAsTime(fixture.starting_at_timestamp)}</b> - ${formatFixtureDate(fixture.starting_at)}</div>
         </div>
       </div>
       <div class="row_bottom">
@@ -183,9 +170,7 @@ evtSource.onmessage = function (event) {
             <p>${awayTeamName}</p>
           </div>
         </div>
-        <div class="fixture_details"><a href="/fixture/${
-          fixture.id
-        }">details</a></div>
+        <div class="fixture_details"><a href="/fixture/${fixture.id}">details</a></div>
       </div>
     </div>
     `;

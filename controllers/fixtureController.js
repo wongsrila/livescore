@@ -1,6 +1,10 @@
-const { requestFixture } = require('../models/api_fixtures');
+const {
+  requestFixture,
+  requestLeagueStandings,
+} = require('../models/api_fixtures');
 
 let fixtureId = null;
+let fixtureData = null;
 
 // testData = {
 //   id: 18988008,
@@ -835,9 +839,15 @@ let fixtureId = null;
 // };
 
 const getFixture = async (req, res) => {
-  fixtureId = req.params.id;
   try {
-    res.render('fixture');
+    fixtureId = req.params.id;
+    fixtureData = await requestFixture(fixtureId);
+    const leagueStandings = await requestLeagueStandings(fixtureData.league_id);
+
+    const orderedStandings = leagueStandings.sort(
+      (a, b) => a.position - b.position
+    );
+    res.render('fixture', { orderedStandings });
   } catch (err) {
     console.error(err);
     res.status(500).send('Internal Server Error');
@@ -850,9 +860,6 @@ const fixtureStream = (req, res) => {
   res.setHeader('Connection', 'keep-alive');
 
   const getFixture = async () => {
-    // const fixtureData = testData;
-    const fixtureData = await requestFixture(fixtureId);
-
     res.write(`data: ${JSON.stringify(fixtureData)}\n\n`);
   };
 

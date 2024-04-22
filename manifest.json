@@ -6,6 +6,7 @@
   "start_url": "/",
   "name": "Livescores",
   "short_name": "Livescores",
+  "description": "Get Live Football Scores and Real-Time Football Results with LiveScore!",
   "icons": [
     {
       "src": "img/icon-192x192.png",

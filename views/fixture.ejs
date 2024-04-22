@@ -8,7 +8,69 @@
     <title>Fixture</title>
   </head>
   <body>
-    <div class="content-wrapper"></div>
+    <main>
+      <div class="content-wrapper"></div>
+      <section class="fixture-nav">
+        <p class="nav-btn">Standings</p>
+      </section>
+      <section class="standings">
+        <div class="standing-row">
+          <div class="team_name-wrapper">
+            <div class="standing-position"><b>#</b></div>
+            <div class="standing-team"><b>TEAM</b></div>
+          </div>
+          <div class="team_data-wrapper">
+            <div class="standing-data">MP</div>
+            <div class="standing-data">W</div>
+            <div class="standing-data">D</div>
+            <div class="standing-data">L</div>
+            <div class="standing-data">G</div>
+            <div class="standing-data">GD</div>
+            <div class="standing-data"><b>PTS</b></div>
+          </div>
+        </div>
+        <!-- prettier-ignore -->
+        <% orderedStandings.forEach((team, index) => { %>
+        <% const matchPLayed = team.details.find((data) => data.type.code === 'overall-matches-played')?.value || 0; %>
+        <% const won = team.details.find((data) => data.type.code === 'overall-won')?.value || 0; %>
+        <% const draw = team.details.find((data) => data.type.code === 'overall-draw')?.value || 0; %>
+        <% const lost = team.details.find((data) => data.type.code === 'overall-lost')?.value || 0; %>
+        <% const goalsFor = team.details.find((data) => data.type.code === 'overall-goals-for')?.value || 0; %>
+        <% const goalsConceded = team.details.find((data) => data.type.code === 'overall-goals-against')?.value || 0; %>
+        <% const goalDifference = team.details.find((data) => data.type.code === 'goal-difference')?.value || 0; %>
+        <% const totalPoints = team.details.find((data) => data.type.code === 'overall-points')?.value || 0; %>
+        <div class="standing-row">
+          <div class="team_name-wrapper">
+            <div class="standing-position"><b><%= index + 1 %>.</b></div>
+            <div class="standing-team">
+              <img
+                src="<%= team.participant.image_path %>"
+                alt="team-logo"
+              /><%= team.participant.name %>
+              <div>
+                <% if (team.result === 'up') { %>
+                <div class="arrow-up">↑</div>
+                <% } else if (team.result === 'down') { %>
+                <div class="arrow-down">↓</div>
+                <% } %>
+              </div>
+            </div>
+          </div>
+          <div class="team_data-wrapper">
+            <div class="standing-data"><%= matchPLayed %></div>
+            <div class="standing-data"><%= won %></div>
+            <div class="standing-data"><%= draw %></div>
+            <div class="standing-data"><%= lost %></div>
+            <div class="standing-data">
+              <%= goalsFor %>:<%= goalsConceded %>
+            </div>
+            <div class="standing-data"><%= goalDifference %></div>
+            <div class="standing-data"><b><%= totalPoints %></b></div>
+          </div>
+        </div>
+        <% }) %>
+      </section>
+    </main>
     <script defer src="/js/main.js"></script>
     <script src="/js/fixture-sse.js"></script>
   </body>
