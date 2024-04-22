@@ -260,7 +260,11 @@ main {
 .standings {
   display: flex;
   flex-direction: column;
-  padding: 2rem 12px;
+  /* padding: 2rem 12px; */
+  padding-top: 8px;
+  padding-bottom: 2rem;
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 .standing-row {
@@ -309,4 +313,8 @@ main {
 
 .arrow-down {
   color: #ff0045;
+}
+
+.table-header {
+  cursor: help;
 }
