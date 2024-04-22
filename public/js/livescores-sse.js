@@ -4,34 +4,6 @@ import {
   stateNames,
 } from '/js/utils.js';
 
-let prevHomeScore = 0;
-let prevAwayScore = 0;
-let audioElement = null;
-let scoresInitialized = false;
-
-function playGoalSound() {
-  if (audioElement) {
-    // If an audio element already exists, stop it and remove it
-    audioElement.pause();
-    audioElement.currentTime = 0;
-    audioElement.removeEventListener('ended', handleAudioEnded);
-    document.body.removeChild(audioElement);
-  }
-
-  audioElement = document.createElement('audio');
-  audioElement.src = '/audio/goal.mp3'; // Replace with the path to your goal sound file
-  audioElement.autoplay = true;
-  document.body.appendChild(audioElement);
-
-  // Add an event listener to remove the audio element after it finishes playing
-  audioElement.addEventListener('ended', handleAudioEnded);
-}
-
-function handleAudioEnded() {
-  document.body.removeChild(audioElement);
-  audioElement = null;
-}
-
 const evtSource = new EventSource(`/livescore-stream`);
 evtSource.onmessage = function (event) {
   const data = JSON.parse(event.data);
@@ -67,22 +39,6 @@ evtSource.onmessage = function (event) {
         (score) =>
           score.description === 'CURRENT' && score.score.participant === 'away'
       )?.score.goals ?? 0;
-
-    if (!scoresInitialized) {
-      prevHomeScore = homeScore;
-      prevAwayScore = awayScore;
-      scoresInitialized = true;
-    }
-
-    if (prevHomeScore !== homeScore) {
-      playGoalSound();
-      prevHomeScore = homeScore;
-    }
-
-    if (prevAwayScore !== awayScore) {
-      playGoalSound();
-      prevAwayScore = awayScore;
-    }
 
     // Get home and away team details
     fixture.participants.forEach((participant) => {
