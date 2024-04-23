@@ -8,6 +8,7 @@
 
 body {
   font-family: 'Roboto', sans-serif;
+  font-size: 0.8rem;
 }
 
 .page-wrapper {
@@ -16,6 +17,27 @@ body {
   margin-right: auto;
   border-left: 1px solid #f0f0f5;
   border-right: 1px solid #f0f0f5;
+}
+
+header {
+  display: flex;
+  background-color: #ff0045;
+  padding: 12px;
+  gap: 1rem;
+}
+
+.btn {
+  text-decoration: none;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  /* background-color: #fff; */
+  border: 1px solid #fff;
+}
+
+.btn.active {
+  background-color: #fff;
+  color: #ff0045;
 }
 
 .fixture_row {

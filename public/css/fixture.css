@@ -10,14 +10,30 @@ body {
   font-family: 'Roboto', sans-serif;
   color: #282828;
   font-size: 0.8rem;
-}
 
-main {
   max-width: 780px;
   margin-left: auto;
   margin-right: auto;
   border-left: 1px solid #f0f0f5;
   border-right: 1px solid #f0f0f5;
+}
+
+header {
+  background-color: #fff;
+  padding: 12px;
+  font-size: 12px;
+  display: flex;
+  justify-content: end;
+}
+
+.share-btn {
+  background-color: #ff0045;
+  padding: 3px 6px;
+  color: #fff;
+  border-radius: 2px;
+}
+
+main {
 }
 
 .added-time {
@@ -54,9 +70,19 @@ main {
 .breadcrumb {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 12px;
   background-color: #ff0045;
   gap: 0.5rem;
+}
+
+.breadcrumb-wrapper {
+  display: flex;
+  gap: 0.5rem;
+}
+
+#shareBtn {
+  cursor: pointer;
 }
 
 .breadcrumb div,
@@ -66,7 +92,6 @@ main {
   text-decoration: none;
   color: #fff;
   font-size: 0.8rem;
-  text-decoration: underline;
 }
 
 .breadcrumb b {
@@ -75,7 +100,6 @@ main {
 
 .breadcrumb a {
   color: #fff;
-  text-decoration: underline;
 }
 
 .h2h-wrapper {

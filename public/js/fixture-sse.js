@@ -174,14 +174,10 @@ evtSource.onmessage = function (event) {
   // prettier-ignore
   const fixtureHTML = /*html*/ `
     <section class="breadcrumb">
-      <div><a href="/">Live Scores</a></div>
-      <b>></b>
-      <div><img src="${
-        data.league.country.image_path
-      }" alt="country-flag" width="24"></div>
-      <a href="#">${data.league?.name || ''} ${
-    data.round !== null ? `| Round ${data.round.name}` : ''
-  }</a>
+      <div class=breadcrumb-wrapper>
+        <div><a href="/">Live Scores</a></div><b>></b><div><img src="${data.league.country.image_path}" alt="country-flag" width="24"></div><a href="#">${data.league?.name || ''} ${data.round !== null ? `| Round ${data.round.name}` : ''}</a>
+      </div>
+      
     </section>
     <section class="h2h-wrapper">
       <div class="team-logo">
